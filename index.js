@@ -55,18 +55,12 @@ app.post('/sendEmailNotification', (req, res) => {
     try {
         const { to, subject, emailBody } = req.body;
         const mailOptions = {
-            from: config.email.user,
+            from: config.nodemailer.from,
             to: to,
             subject: subject,
             html: emailBody
         };
-        const transporter = nodemailer.createTransport({
-            service: config.email.serviceProvider,
-            auth: {
-                user: config.email.user,
-                pass: config.email.pass
-            }
-        });
+        const transporter = nodemailer.createTransport(config.nodemailer.smtpConfig);
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log('sendEmailNotification -> error', error.message);
