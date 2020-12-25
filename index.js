@@ -70,7 +70,7 @@ app.post('/sendEmailNotification', (req, res) => {
             })
         });
     } catch (error) {
-        console.log('createOrder -> error', err);
+        console.log('createOrder -> error', error);
         return res.status(500).send(error);
     }
 });
